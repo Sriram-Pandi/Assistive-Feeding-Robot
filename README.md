@@ -1,7 +1,5 @@
 # Robotic Assistive Feeding System
 
-https://github.com/anvithaanchala/RSS/assets/61319491/f5aef311-ad0e-4e57-8658-c240852c96bf
-
 ## Overview
 This project focuses on developing a robotic arm designed to help individuals with upper limb impairments. 
 The goal is to improve the flexibility and accuracy of assistive feeding devices, ultimately helping users become more independent.
