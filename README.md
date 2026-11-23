@@ -23,3 +23,9 @@ The imaging workflow is crucial for the effective operation of the assistive fee
 ## Installation Requirements
 - **Hardware:** Intel Realsense D455i camera, WidowX250s robotic arm.
 - **Software:** Python 3.8 or later, Mediapipe, other dependencies listed in `requirements.txt`.
+
+## Choose a script
+
+- [only_depth_centroid.py](only_depth_centroid.py) provides a camera-only entry point for inspecting depth and facial landmarks on a compatible RealSense camera.
+- [index.py](index.py), [mouth_detandmov.py](mouth_detandmov.py), and [mouthdetandmov_depthcam.py](mouthdetandmov_depthcam.py) are prototype scripts. Review hardware configuration and coordinate assumptions before integration.
+- The [dependency file](requirements.txt) records the original pins. Depth-camera scripts also import `pyrealsense2` and need compatible RealSense SDK components.
