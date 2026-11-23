@@ -36,7 +36,8 @@ try:
             print("Failed to capture image")
             continue
         cv2.imshow("Real-time Video", frame)
-        key = cv2.waitKey(1)        if key & 0xFF == ord('q'):  # Press 'q' to quit
+        key = cv2.waitKey(1)
+        if key & 0xFF == ord('q'):  # Press 'q' to quit
             break
 
         if key & 0xFF == ord(' '):  # Process the image when spacebar is pressed
