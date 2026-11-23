@@ -24,6 +24,7 @@ except Exception as e:
     exit(1)
 
 try:
+    align_to_color = rs.align(rs.stream.color)
     while True:
         try:
             # Wait for a coherent pair of frames: depth and color
@@ -32,15 +33,15 @@ try:
             logging.warning(f"RuntimeError: {e}")
             continue  # Skip to the next loop iteration and try again
 
-        depth_frame = frames.get_depth_frame()
-        color_frame = frames.get_color_frame()
+        aligned_frames = align_to_color.process(frames)
+        depth_frame = aligned_frames.get_depth_frame()
+        color_frame = aligned_frames.get_color_frame()
 
         if not depth_frame or not color_frame:
             logging.warning("No frames received, check your camera setup.")
             continue
 
         # Convert images to numpy arrays
-        depth_image = np.asanyarray(depth_frame.get_data())
         color_image = np.asanyarray(color_frame.get_data())
         image_rgb = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
 
@@ -66,7 +67,11 @@ try:
                     cx, cy = int(centroid_x * w), int(centroid_y * h)
 
                     # Retrieve the depth from the depth image
-                    depth = depth_image[cy, cx]
+                    if not (0 <= cx < w and 0 <= cy < h):
+                        continue
+                    depth = depth_frame.get_distance(cx, cy)
+                    if depth <= 0:
+                        continue
 
                     # Get the 3D coordinates
                     depth_intrin = depth_frame.profile.as_video_stream_profile().intrinsics
